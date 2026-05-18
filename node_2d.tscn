@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bwwd0s3iq2tsd"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 339.0
+offset_top = 143.0
+offset_right = 709.0
+offset_bottom = 455.0
+text = "HELLO HELLO"
