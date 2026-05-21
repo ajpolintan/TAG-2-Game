@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwwd0s3iq2tsd"]
+
+[ext_resource type="Script" uid="uid://u8upc21whry6" path="res://Scripts/CharacterMovement.cs" id="1_v1qfn"]
+[ext_resource type="Texture2D" uid="uid://dr7hybudwoeae" path="res://icon.svg" id="2_hh5uf"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_v1qfn")
+Speed = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(209, 259)
+texture = ExtResource("2_hh5uf")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 752.0
+offset_top = 267.0
+offset_right = 1122.0
+offset_bottom = 579.0
+text = "HELLO HELLO"
