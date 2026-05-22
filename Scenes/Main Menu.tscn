@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdfa8eee7d7m"]
+
+[ext_resource type="Script" uid="uid://gturex0gqr1v" path="res://Scripts/MainMenu.cs" id="1_totuj"]
+[ext_resource type="PackedScene" uid="uid://bwwd0s3iq2tsd" path="res://Scenes/Main.tscn" id="2_hcxxy"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_totuj")
+TargetScene = ExtResource("2_hcxxy")
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 312.0
+offset_top = 217.0
+offset_right = 430.0
+offset_bottom = 270.0
+text = "Start Game"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 106.0
+offset_right = 327.33502
+offset_bottom = 134.0
+text = "Team Alpha Games"
