@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://br3uow7ut1b8n"]
+
+[ext_resource type="Script" uid="uid://du5kdda4ldnrh" path="res://Scripts/Actionable.cs" id="1_4jkol"]
+[ext_resource type="Resource" uid="uid://dwh640wn1kfwf" path="res://Dialogue/test.dialogue" id="2_sssfn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_50glp"]
+
+[node name="Actionable" type="Area2D"]
+script = ExtResource("1_4jkol")
+DialogueResource = ExtResource("2_sssfn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(200, 32)
+scale = Vector2(5.145, 5.145)
+shape = SubResource("CircleShape2D_50glp")
