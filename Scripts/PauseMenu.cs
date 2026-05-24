@@ -55,6 +55,7 @@ public partial class PauseMenu : CanvasLayer
 	/// </summary>
 	private void OnResumePressed()
 	{
+		GD.Print("Resume Pressed!");
 		ResumeGame();
 	}
 	/// <summary>
