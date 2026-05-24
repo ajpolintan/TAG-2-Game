@@ -1,0 +1,10 @@
+~ start
+Cyrus: [[Hi|Hello|Howdy]], Hallo hallo hallo.
+Cyrus: Max 300
+Cyrus: I will beat Step this Way!
+Cyrus: RAHHHHHHHHHHHH!
+
+- Start again => start
+- End the conversation => END
+Nathan: For more information see the online documentation.
+=> END
