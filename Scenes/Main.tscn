@@ -1,14 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://bwwd0s3iq2tsd"]
+[gd_scene load_steps=10 format=3 uid="uid://bwwd0s3iq2tsd"]
 
 [ext_resource type="Script" uid="uid://u8upc21whry6" path="res://Scripts/CharacterMovement.cs" id="1_idj7w"]
 [ext_resource type="Texture2D" uid="uid://b81qnrjxbnw53" path="res://Assets/Art/hachiware.webp" id="2_idj7w"]
 [ext_resource type="PackedScene" uid="uid://bbmjmbr0njw6h" path="res://Scenes/PauseMenu.tscn" id="3_kln2b"]
-[ext_resource type="Script" uid="uid://b7nvhbtb7dwyo" path="res://Scripts/DialogueTester.cs" id="4_rgh2o"]
+[ext_resource type="Resource" uid="uid://dwh640wn1kfwf" path="res://Dialogue/test.dialogue" id="5_jw32o"]
 [ext_resource type="Script" uid="uid://du5kdda4ldnrh" path="res://Scenes/Actionable.cs" id="5_v1gob"]
 [ext_resource type="Texture2D" uid="uid://bc8us0vqin56x" path="res://Assets/Art/YahaUsagi.webp" id="6_jw32o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgh2o"]
 size = Vector2(130.5, 130)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v1gob"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_50glp"]
 
@@ -20,8 +22,18 @@ WalkSpeed = 250.0
 RunSpeed = 400.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(226.75, 285)
+visible = false
+position = Vector2(232, 302)
 shape = SubResource("RectangleShape2D_rgh2o")
+
+[node name="ActionableFinder" type="Area2D" parent="CharacterBody2D"]
+position = Vector2(215, 308)
+scale = Vector2(0.35416675, 0.35416675)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/ActionableFinder"]
+position = Vector2(45.176456, -39.5294)
+scale = Vector2(19.43, 19.43)
+shape = SubResource("CircleShape2D_v1gob")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 position = Vector2(226.99998, 287)
@@ -30,12 +42,10 @@ texture = ExtResource("2_idj7w")
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_kln2b")]
 
-[node name="TestNode" type="Node" parent="."]
-script = ExtResource("4_rgh2o")
-
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(653, 259)
 script = ExtResource("5_v1gob")
+DialogueResource = ExtResource("5_jw32o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(200, 32)
