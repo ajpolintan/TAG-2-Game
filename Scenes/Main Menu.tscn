@@ -1,22 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdfa8eee7d7m"]
+[gd_scene load_steps=6 format=3 uid="uid://bdfa8eee7d7m"]
 
 [ext_resource type="Script" uid="uid://gturex0gqr1v" path="res://Scripts/MainMenu.cs" id="1_totuj"]
-[ext_resource type="PackedScene" uid="uid://b1023ja8s3rom" path="res://Scenes/Battle.tscn" id="2_hcxxy"]
 [ext_resource type="FontFile" uid="uid://c8fuliq5if801" path="res://Assets/Fonts/VarelaRound-Regular.ttf" id="3_ur25d"]
 [ext_resource type="PackedScene" uid="uid://b1023ja8s3rom" path="res://Scenes/Battle.tscn" id="4_eotax"]
+[ext_resource type="PackedScene" uid="uid://bbmjmbr0njw6h" path="res://Scenes/PauseMenu.tscn" id="4_udm2q"]
+[ext_resource type="Texture2D" uid="uid://7kj0wpo0obcg" path="res://Assets/Art/transparent apple.png" id="5_mjet1"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_totuj")
-TargetScene = ExtResource("2_hcxxy")
+TargetScene = ExtResource("4_eotax")
 
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 505.0
-offset_top = 260.0
-offset_right = 623.0
-offset_bottom = 313.0
+offset_left = 523.0
+offset_top = 514.0
+offset_right = 641.0
+offset_bottom = 567.0
 text = "Start Game"
 
 [node name="Label" type="Label" parent="."]
@@ -29,4 +30,10 @@ theme_override_fonts/font = ExtResource("3_ur25d")
 theme_override_font_sizes/font_size = 86
 text = "Team Alpha Games 2"
 
-[node name="PauseMenu" parent="." instance=ExtResource("4_eotax")]
+[node name="PauseMenu" parent="." instance=ExtResource("4_udm2q")]
+visible = false
+
+[node name="TransparentApple" type="Sprite2D" parent="."]
+position = Vector2(575.00006, 371)
+scale = Vector2(0.2911111, 0.31555554)
+texture = ExtResource("5_mjet1")

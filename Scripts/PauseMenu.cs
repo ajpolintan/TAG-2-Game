@@ -6,10 +6,6 @@ using System;
 /// </summary>
 public partial class PauseMenu : CanvasLayer
 {
-	
-	[Export]
-	public PackedScene MenuScene { get; set; }
-	
 	/// <summary>
 	/// Called when the node enters the scene tree.
 	/// </summary>

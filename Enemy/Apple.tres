@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ce7aac4r4c14e"]
+
+[ext_resource type="Script" uid="uid://1raon2g1h75e" path="res://Resources/BaseEnemy.cs" id="1_ct2pu"]
+[ext_resource type="Texture2D" uid="uid://7kj0wpo0obcg" path="res://Assets/Art/transparent apple.png" id="2_o41ui"]
+
+[resource]
+script = ExtResource("1_ct2pu")
+name = "Infamous Apple"
+texture = ExtResource("2_o41ui")
+health = 100
+damage = 50

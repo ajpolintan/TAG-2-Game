@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1023ja8s3rom"]
+[gd_scene load_steps=5 format=3 uid="uid://b1023ja8s3rom"]
 
 [ext_resource type="Script" uid="uid://d1m3sw2lfoe8y" path="res://Scripts/Battle.cs" id="1_vr6xi"]
 [ext_resource type="Texture2D" uid="uid://bc8us0vqin56x" path="res://Assets/Art/YahaUsagi.webp" id="1_wvl2i"]
+[ext_resource type="Resource" uid="uid://ce7aac4r4c14e" path="res://Enemy/Apple.tres" id="2_2h7oj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vr6xi"]
 bg_color = Color(0.47691602, 0.65977144, 0.41330057, 1)
@@ -14,8 +15,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vr6xi")
+Enemy = ExtResource("2_2h7oj")
 
-[node name="Test" type="ProgressBar" parent="."]
+[node name="EnemyHealthBar" type="ProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -28,9 +30,16 @@ grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vr6xi")
 value = 70.0
 
-[node name="Enemy Usagi" type="Sprite2D" parent="."]
-position = Vector2(581, 300)
-scale = Vector2(0.8128205, 0.8128205)
+[node name="EnemyName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 512.0
+offset_right = 165.0
+offset_bottom = 535.0
+
+[node name="EnemyTexture" type="Sprite2D" parent="."]
+position = Vector2(574, 299.00003)
+scale = Vector2(0.50192314, 0.425)
 texture = ExtResource("1_wvl2i")
 
 [node name="PlayerPanel" type="Panel" parent="."]
@@ -43,7 +52,7 @@ offset_top = -105.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="ProgressBar2" type="ProgressBar" parent="PlayerPanel"]
+[node name="PlayerHealthBar" type="ProgressBar" parent="PlayerPanel"]
 layout_mode = 0
 offset_left = 740.0
 offset_top = 40.0
@@ -77,7 +86,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 text = "Defend"
 
-[node name="Health" type="Button" parent="PlayerPanel/Actions"]
+[node name="Run" type="Button" parent="PlayerPanel/Actions"]
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Run"

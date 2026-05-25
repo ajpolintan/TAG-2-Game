@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cruig10cf508a"]
+
+[ext_resource type="Script" uid="uid://1raon2g1h75e" path="res://Resources/BaseEnemy.cs" id="1_qsotc"]
+[ext_resource type="Texture2D" uid="uid://bc8us0vqin56x" path="res://Assets/Art/YahaUsagi.webp" id="2_qygia"]
+
+[resource]
+script = ExtResource("1_qsotc")
+name = "The Spooky Usagi"
+texture = ExtResource("2_qygia")
+health = 50
+damage = 20

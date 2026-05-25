@@ -9,8 +9,6 @@ public partial class Actionable : Area2D
 	[Export] public Resource DialogueResource;
 	[Export] public string DialogueString = "start";
 	
-	
-	
 	//Connecting Sign
 	public override void _Ready() {
 		BodyEntered += OnBodyEntered;
