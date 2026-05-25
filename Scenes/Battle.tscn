@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1023ja8s3rom"]
+
+[ext_resource type="Texture2D" uid="uid://bc8us0vqin56x" path="res://Assets/Art/YahaUsagi.webp" id="1_wvl2i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vr6xi"]
+bg_color = Color(0.47691602, 0.65977144, 0.41330057, 1)
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -153.0
+offset_top = 70.0
+offset_right = 154.0
+offset_bottom = 97.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_vr6xi")
+value = 70.0
+
+[node name="Enemy Usagi" type="Sprite2D" parent="."]
+position = Vector2(581, 300)
+scale = Vector2(0.8128205, 0.8128205)
+texture = ExtResource("1_wvl2i")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -105.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Actions" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.5
+offset_top = -20.0
+offset_right = 72.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Attack" type="Button" parent="Panel/Actions"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Attack"
+
+[node name="Defend" type="Button" parent="Panel/Actions"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Defend"
+
+[node name="Health" type="Button" parent="Panel/Actions"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Run"
