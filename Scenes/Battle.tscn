@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1023ja8s3rom"]
+[gd_scene load_steps=4 format=3 uid="uid://b1023ja8s3rom"]
 
+[ext_resource type="Script" uid="uid://d1m3sw2lfoe8y" path="res://Scripts/Battle.cs" id="1_vr6xi"]
 [ext_resource type="Texture2D" uid="uid://bc8us0vqin56x" path="res://Assets/Art/YahaUsagi.webp" id="1_wvl2i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vr6xi"]
@@ -12,8 +13,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_vr6xi")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="Test" type="ProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -31,7 +33,7 @@ position = Vector2(581, 300)
 scale = Vector2(0.8128205, 0.8128205)
 texture = ExtResource("1_wvl2i")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="PlayerPanel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -41,7 +43,17 @@ offset_top = -105.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Actions" type="HBoxContainer" parent="Panel"]
+[node name="ProgressBar2" type="ProgressBar" parent="PlayerPanel"]
+layout_mode = 0
+offset_left = 740.0
+offset_top = 40.0
+offset_right = 1066.0
+offset_bottom = 63.0
+theme_override_styles/background = SubResource("StyleBoxFlat_vr6xi")
+min_value = -0.015
+value = 70.05499999999999
+
+[node name="Actions" type="HBoxContainer" parent="PlayerPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,17 +67,17 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Attack" type="Button" parent="Panel/Actions"]
+[node name="Attack" type="Button" parent="PlayerPanel/Actions"]
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Attack"
 
-[node name="Defend" type="Button" parent="Panel/Actions"]
+[node name="Defend" type="Button" parent="PlayerPanel/Actions"]
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Defend"
 
-[node name="Health" type="Button" parent="Panel/Actions"]
+[node name="Health" type="Button" parent="PlayerPanel/Actions"]
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Run"

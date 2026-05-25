@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://u8upc21whry6" path="res://Scripts/CharacterMovement.cs" id="1_idj7w"]
 [ext_resource type="Texture2D" uid="uid://b81qnrjxbnw53" path="res://Assets/Art/hachiware.webp" id="2_idj7w"]
-[ext_resource type="PackedScene" uid="uid://bbmjmbr0njw6h" path="res://Scenes/PauseMenu.tscn" id="3_kln2b"]
+[ext_resource type="PackedScene" uid="uid://bdfa8eee7d7m" path="res://Scenes/Main Menu.tscn" id="3_kln2b"]
 [ext_resource type="PackedScene" uid="uid://br3uow7ut1b8n" path="res://Scenes/Actionable.tscn" id="4_pbw6q"]
 [ext_resource type="Texture2D" uid="uid://7kj0wpo0obcg" path="res://Assets/Art/transparent apple.png" id="6_50glp"]
 [ext_resource type="Texture2D" uid="uid://bc8us0vqin56x" path="res://Assets/Art/YahaUsagi.webp" id="6_jw32o"]

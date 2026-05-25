@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bdfa8eee7d7m"]
 
 [ext_resource type="Script" uid="uid://gturex0gqr1v" path="res://Scripts/MainMenu.cs" id="1_totuj"]
-[ext_resource type="PackedScene" uid="uid://bwwd0s3iq2tsd" path="res://Scenes/Main.tscn" id="2_hcxxy"]
+[ext_resource type="PackedScene" uid="uid://b1023ja8s3rom" path="res://Scenes/Battle.tscn" id="2_hcxxy"]
 [ext_resource type="FontFile" uid="uid://c8fuliq5if801" path="res://Assets/Fonts/VarelaRound-Regular.ttf" id="3_ur25d"]
-[ext_resource type="PackedScene" uid="uid://bbmjmbr0njw6h" path="res://Scenes/PauseMenu.tscn" id="4_eotax"]
+[ext_resource type="PackedScene" uid="uid://b1023ja8s3rom" path="res://Scenes/Battle.tscn" id="4_eotax"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
