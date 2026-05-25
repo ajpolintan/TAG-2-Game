@@ -39,6 +39,9 @@ position = Vector2(226.99998, 287)
 scale = Vector2(0.35416675, 0.35416675)
 texture = ExtResource("2_idj7w")
 
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(234, 284)
+
 [node name="PauseMenu" parent="." instance=ExtResource("3_kln2b")]
 
 [node name="Actionable" parent="." instance=ExtResource("4_pbw6q")]
