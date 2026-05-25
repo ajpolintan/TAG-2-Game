@@ -6,6 +6,10 @@ using System;
 /// </summary>
 public partial class PauseMenu : CanvasLayer
 {
+	
+	[Export]
+	public PackedScene MenuScene { get; set; }
+	
 	/// <summary>
 	/// Called when the node enters the scene tree.
 	/// </summary>
@@ -13,6 +17,9 @@ public partial class PauseMenu : CanvasLayer
 	{
 		GetNode<Button>("VBoxContainer/ResumeButton").Pressed += OnResumePressed;
 		GetNode<Button>("VBoxContainer/QuitButton").Pressed += OnQuitPressed;
+		GetNode<Button>("VBoxContainer/MenuButton").Pressed += OnMenuPressed;
+		Visible = false;
+		GetTree().Paused = false;
 	}
 
 	/// <summary>
@@ -64,5 +71,9 @@ public partial class PauseMenu : CanvasLayer
 	private void OnQuitPressed()
 	{
 		GetTree().Quit();
+	}
+	
+	private void OnMenuPressed() {
+		GetTree().ChangeSceneToFile("res://Scenes/Main Menu.tscn");
 	}
 }
