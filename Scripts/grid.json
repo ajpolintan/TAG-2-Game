@@ -1,0 +1,9 @@
+{
+  "name": "Alice",
+  "age": 30,
+  "grid": [
+	["blue_texture","purple_texture","blue_texture"],
+	["purple_texture","green_texture","green_texture"],
+	["blue_texture","blue_texture","purple_texture"] 
+  ]
+}
