@@ -10,19 +10,27 @@ public partial class Battle : Control
 	[Export]
 	public BaseEnemy Enemy { get; set; }
 	
+	///
+	/// Progress Bar Nodes
+	///
 	private ProgressBar _enemyHealthBar; 
 	private ProgressBar _playerHealthBar;
 
+	/// Attack Button Nodes
 	private Button _attackButton;
 	private Button _runButton;
 	
+	/// Labels
 	private Label _enemyName;
 	private Sprite2D _enemyTexture;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
-	{
-		 SignalBus.Instance.EmitSignal(SignalBus.SignalName.EnemyDefeated);
+	{	
+		// Connect the Enemy Defeated Signal to a Custom Function in The Script
+		SignalBus.Instance.EnemyDefeated += OnEnemyDefeated;
+		
+		// Get the Nodes
 		_enemyHealthBar = GetNode<ProgressBar>("EnemyHealthBar");
 		_playerHealthBar = GetNode<ProgressBar>("PlayerPanel/PlayerHealthBar");
 		_attackButton = GetNode<Button>("PlayerPanel/Actions/Attack");
@@ -32,6 +40,8 @@ public partial class Battle : Control
 		_enemyTexture = GetNode<Sprite2D>("EnemyTexture");
 		// Initialize Enemies
 		setEnemy(Enemy); 
+		
+		//Connecting Signals to Custom Functions
 		if (_attackButton != null)
 		{
 			_attackButton.Pressed += OnAttackButtonPressed;
@@ -48,10 +58,21 @@ public partial class Battle : Control
 		GD.Print(enemy);
 	}
 	
+	//Plays whenever the Enemy Defeated Signal is Run
+	private void OnEnemyDefeated() {
+		GD.Print("Hello");
+		GetTree().ChangeSceneToFile("res://Scenes/WinScreen.tscn");
+
+	}
+	
 	public void OnAttackButtonPressed()
 	{
 		_enemyHealthBar.Value = _enemyHealthBar.Value - 20;
-		
+	
+		if (_enemyHealthBar.Value <= 0) {
+			//Emit The Enemy Defeated Signal
+			SignalBus.Instance.EmitSignal(SignalBus.SignalName.EnemyDefeated);
+		}
 		EnemyTurn();
 	}
 	

@@ -1,6 +1,7 @@
 ~ start
 Hachiware: This is an apple
 Nathan: Do you want the apple?.
+do character.Battle()
 - Yes
 	Nathan: You picked the first one.
 - No

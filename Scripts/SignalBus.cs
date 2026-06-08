@@ -4,6 +4,8 @@ using System;
 public partial class SignalBus : Node
 {
 	public static SignalBus Instance { get; private set; }
+	
+	//Signal Used Whenever An Enemy is Defeated
 	[Signal]
 	public delegate void EnemyDefeatedEventHandler();
 	

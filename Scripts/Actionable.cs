@@ -20,6 +20,9 @@ public partial class Actionable : Area2D
 		DialogueManager.ShowDialogueBalloon(DialogueResource, DialogueString);
 	}
 	
+		
+
+	
 	private void OnBodyEntered(Node2D body) {
 		GD.Print("Collided");
 		if (Input.IsActionPressed("interact")) {

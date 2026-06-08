@@ -3,8 +3,10 @@ Hachiware: [[Hi|Hello|Howdy]], Hello hello usagi
 Usagi: Hello hello hachiware
 Hachiware: Where do you want to go today Usagi?
 Usagi: The Moon!
-
-- Start again => start
-- End the conversation => END
-Nathan: For more information see the online documentation.
+Usagi: Do you want to Fight?
+- Yes
+	Usagi: Lets do this!
+	do character.Battle()
+- No
+	Usagi: awwww, ok
 => END

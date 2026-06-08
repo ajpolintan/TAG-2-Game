@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class CharacterMovement : CharacterBody2D
 {
@@ -38,6 +39,11 @@ public partial class CharacterMovement : CharacterBody2D
 		 Vector2 input_direction = Input.GetVector("left", "right", "up", "down");
 		 Velocity = input_direction * Speed;
 	} 
+	
+	public async Task Battle()
+	{
+	  GetTree().ChangeSceneToFile("res://Scenes/Battle.tscn");
+	}
 	
 	//Character speed movement
 	public override void _PhysicsProcess(double delta)

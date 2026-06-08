@@ -17,10 +17,5 @@ public partial class DialogueTester : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-	}
-	
-	public async Task AskForName()
-	{
-	  GD.Print("AMONG US");
-	}
+	}	
 }
