@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="TAG-2-Game"
-run/main_scene="uid://bwwd0s3iq2tsd"
+run/main_scene="uid://3ahpm3s2og6o"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
