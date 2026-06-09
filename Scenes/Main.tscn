@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bwwd0s3iq2tsd"]
 
-[ext_resource type="Script" uid="uid://bcif7hyp8ujty" path="res://Scenes/World.cs" id="1_50glp"]
+[ext_resource type="Script" uid="uid://bcif7hyp8ujty" path="res://World.cs" id="1_50glp"]
 [ext_resource type="Script" uid="uid://u8upc21whry6" path="res://Scripts/CharacterMovement.cs" id="1_idj7w"]
 [ext_resource type="Texture2D" uid="uid://c2mmmrk507373" path="res://Assets/Art/sprite 1.png" id="2_jw32o"]
 [ext_resource type="PackedScene" uid="uid://3ahpm3s2og6o" path="res://Scenes/Grid.tscn" id="3_kln2b"]
