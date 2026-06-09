@@ -5,7 +5,7 @@ Hachiware: Where do you want to go today Usagi?
 Usagi: The Moon!
 Usagi: Do you want to Fight?
 - Yes
-	Usagi: Lets do this!
+	Usagi: So you chose death...
 	do character.Battle()
 - No
 	Usagi: awwww, ok

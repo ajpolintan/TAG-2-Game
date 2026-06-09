@@ -530,9 +530,9 @@ class MainWindow(QWidget):
                 row.append(name)
 
             grid.append(row)
-
+        path = Path("..")/"Assets"/"Art"/""
         data = {
-            "folder": "/Users/matthewlaurence/Downloads/",
+            "folder": str(path),
             "grid": grid
         }
 

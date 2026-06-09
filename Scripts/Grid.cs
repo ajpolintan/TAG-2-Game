@@ -8,15 +8,10 @@ public partial class Grid : Node
    // Custom Texture to Put In
    [Export] public Texture2D texture { get; set; }
 
-   public Dictionary<string, string> Tilemap = new Dictionary<string, string>{
-   {"blue_texture", "res://Assets/Art/blue.png"},
-   {"green_texture", "res://Assets/Art/green.png"},
-   {"purple_texture", "res://Assets/Art/purple.png"}};		
-
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadJsonTileMap("res://Json/grid.json");
+		LoadJsonTileMap("res://Json/path_test.json");
 	}
 	
 	public void LoadJsonTileMap(string jsonPath) {
@@ -57,12 +52,16 @@ public partial class Grid : Node
 		}
 	}
 	
-	
 	// Looks up a texture name and puts coords
 	// Returns a Sprite2D
 	public Sprite2D lookup(string textureName, float x, float y) {
 		Sprite2D sprite = new Sprite2D();
-		sprite.Texture = GD.Load<Texture2D>(Tilemap[textureName]); 
+		if (textureName == null) {
+			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/hachiware.webp"); 
+		} else {
+			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/" + textureName); 
+		}
+		
 		sprite.Position = new Vector2(x, y); 
 		return sprite; 
 	}
