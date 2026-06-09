@@ -3,7 +3,7 @@ using Godot.Collections;
 
 namespace DialogueManagerRuntime
 {
-  public partial class ExampleBalloon : CanvasLayer
+  public partial class DialogueBalloon : CanvasLayer
   {
 	[Export] public Resource DialogueResource;
 	[Export] public string StartFromTitle = "";
@@ -11,21 +11,19 @@ namespace DialogueManagerRuntime
 	[Export] public string NextAction = "ui_accept";
 	[Export] public string SkipAction = "ui_cancel";
 
-
+	
 	Control balloon;
 	RichTextLabel characterLabel;
 	RichTextLabel dialogueLabel;
 	VBoxContainer responsesMenu;
 	Polygon2D progress;
+	//add portrait
 	TextureRect portrait;
-	AnimationPlayer animPlayer;
-
+	
 	Array<Variant> temporaryGameStates = new Array<Variant>();
 	bool isWaitingForInput = false;
 	bool willHideBalloon = false;
-	
-	string initialCharacterLabel;
-	
+
 	DialogueLine dialogueLine;
 	DialogueLine DialogueLine
 	{
@@ -56,17 +54,15 @@ namespace DialogueManagerRuntime
 
 	public override void _Ready()
 	{
+	
 	  balloon = GetNode<Control>("%Balloon");
 	  characterLabel = GetNode<RichTextLabel>("%CharacterLabel");
 	  dialogueLabel = GetNode<RichTextLabel>("%DialogueLabel");
 	  responsesMenu = GetNode<VBoxContainer>("%ResponsesMenu");
 	  progress = GetNode<Polygon2D>("%Progress");
-	  portrait = GetNode<TextureRect>("Portrait"); 
-	  animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+	  portrait = GetNode<TextureRect>("Portrait");
+
 	  balloon.Hide();
-	  
-	  //used for animation purposes
-	  initialCharacterLabel = characterLabel.Text;
 
 	  balloon.GuiInput += (@event) =>
 	  {
@@ -209,24 +205,17 @@ namespace DialogueManagerRuntime
 	  // Set up the character name
 	  characterLabel.Visible = !string.IsNullOrEmpty(dialogueLine.Character);
 	  characterLabel.Text = Tr(dialogueLine.Character, "dialogue");
+		
 
-	  // replace the existing character if there is a new character
-	  // if there is a new character, play an animation
-	  if (characterLabel.Text != initialCharacterLabel) {
-		initialCharacterLabel = characterLabel.Text;
-		animPlayer.Play("portrait_anim");
-	  }
-	  //Load in Portrait	
-	  portrait.Texture = GD.Load<Texture2D>("res://Assets/Art/" + characterLabel.Text.ToLower() + ".webp");
-	  //Play Portrait Animation	 
-	  
-	 //Set up the dialogue
+	  // Set up the dialogue
 	  dialogueLabel.Hide();
 	  dialogueLabel.Set("dialogue_line", dialogueLine);
 
 	  // Set up the responses
 	  responsesMenu.Hide();
 	  responsesMenu.Set("responses", dialogueLine.Responses);
+	
+	  //Set up the portraits
 
 	  // Type out the text
 	  balloon.Show();
