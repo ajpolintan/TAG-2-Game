@@ -202,6 +202,7 @@ class MainWindow(QWidget):
         self.cells = []
 
         self.build_grid()
+        self.load_folder()
     #Zoom on Grid
     def apply_zoom(self):
         size = int(32 * self.zoom)
@@ -263,13 +264,6 @@ class MainWindow(QWidget):
     #load Folder button function
     #Imports all images in folder
     def load_folder(self):
-        folder = QFileDialog.getExistingDirectory(
-            self,
-            "Select Folder"
-        )
-
-        if not folder:
-            return
 
         while self.thumb_layout.count():
             item = self.thumb_layout.takeAt(0)
@@ -277,6 +271,8 @@ class MainWindow(QWidget):
             widget = item.widget()
             if widget:
                 widget.deleteLater()
+
+        folder = str(Path("..")/"Assets"/"Art"/"")
 
         paths = sorted(Path(folder).iterdir())
 
@@ -292,11 +288,6 @@ class MainWindow(QWidget):
 
         self.thumb_layout.addStretch()
 
-        QMessageBox.information(
-            self,
-            "Images Loaded",
-            f"{count} images loaded."
-        )
     #Turn grid lines on/off
     def toggle_grid(self):
             self.grid_visible = not self.grid_visible
@@ -530,9 +521,7 @@ class MainWindow(QWidget):
                 row.append(name)
 
             grid.append(row)
-        path = Path("..")/"Assets"/"Art"/""
         data = {
-            "folder": str(path),
             "grid": grid
         }
 
@@ -553,7 +542,8 @@ class MainWindow(QWidget):
                 with open(file_path, "r") as f:
                     data = json.load(f)
 
-                folder = data["folder"]
+                #folder = data["folder"]
+                folder = str(Path("..")/"Assets"/"Art"/"")
                 grid = data["grid"]
 
                 self.current_folder = folder
