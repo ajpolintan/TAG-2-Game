@@ -16,7 +16,7 @@ public partial class Grid : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadJsonTileMap("res://Scripts/grid.json");
+		LoadJsonTileMap("res://Json/grid.json");
 	}
 	
 	public void LoadJsonTileMap(string jsonPath) {

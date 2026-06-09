@@ -24,7 +24,9 @@ public partial class Battle : Control
 	private Label _enemyName;
 	private Sprite2D _enemyTexture;
 	
-	// Called when the node enters the scene tree for the first time.
+	// Handles the damage from the enemy
+	private int _enemyDamage;
+	
 	public override void _Ready()
 	{	
 		// Connect the Enemy Defeated Signal to a Custom Function in The Script
@@ -38,6 +40,9 @@ public partial class Battle : Control
 		
 		_enemyName = GetNode<Label>("EnemyName");
 		_enemyTexture = GetNode<Sprite2D>("EnemyTexture");
+	
+		// Initialize Player 
+	
 		// Initialize Enemies
 		setEnemy(Enemy); 
 		
@@ -52,9 +57,11 @@ public partial class Battle : Control
 		}
 	}
 
+	// Sets up the enemy text, texture, and damage
 	private void setEnemy(BaseEnemy enemy) {
 		_enemyName.Text = enemy.name;
 		_enemyTexture.Texture = enemy.texture;
+		_enemyDamage = enemy.damage;
 		GD.Print(enemy);
 	}
 	
@@ -82,12 +89,6 @@ public partial class Battle : Control
 	}
 	
 	public void EnemyTurn() {
-		_playerHealthBar.Value = _playerHealthBar.Value - 10;
-	}
-	
-	
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+		_playerHealthBar.Value = _playerHealthBar.Value - _enemyDamage;
 	}
 }

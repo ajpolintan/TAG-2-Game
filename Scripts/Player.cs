@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
-public partial class CharacterMovement : CharacterBody2D
+public partial class Player : CharacterBody2D
 {
 	/// <summary>
 	/// Handles the speed of the character movement

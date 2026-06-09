@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+// Class that manages all the signals. This is a global autoloaded script that can be used anywhere 
 public partial class SignalBus : Node
 {
 	public static SignalBus Instance { get; private set; }

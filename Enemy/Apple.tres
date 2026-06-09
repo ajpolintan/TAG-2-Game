@@ -8,4 +8,4 @@ script = ExtResource("1_ct2pu")
 name = "Infamous Apple"
 texture = ExtResource("2_o41ui")
 health = 100
-damage = 50
+damage = 40
