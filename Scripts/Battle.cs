@@ -79,14 +79,14 @@ public partial class Battle : Control
 	public async void OnAttackButtonPressed()
 	{
 		_enemyHealthBar.Value = _enemyHealthBar.Value - 20;
-			
+		
 		if (_enemyHealthBar.Value <= 0) {
 			//Emit The Enemy Defeated Signal
 			SignalBus.Instance.EmitSignal(SignalBus.SignalName.EnemyDefeated);
 		}
 		await ToSignal(GetTree().CreateTimer(TURN_COOLDOWN), SceneTreeTimer.SignalName.Timeout);
 		EnemyTurn();
-		
+		await ToSignal(GetTree().CreateTimer(TURN_COOLDOWN), SceneTreeTimer.SignalName.Timeout);
 		if (_playerHealthBar.Value <= 0) {
 			SignalBus.Instance.EmitSignal(SignalBus.SignalName.PlayerDefeated);
 		}

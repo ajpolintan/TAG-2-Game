@@ -8,6 +8,7 @@
 size = Vector2(40, 40)
 
 [node name="Projectile" type="Node2D"]
+z_index = 2
 script = ExtResource("1_whj0l")
 
 [node name="TextureRect" type="TextureRect" parent="."]

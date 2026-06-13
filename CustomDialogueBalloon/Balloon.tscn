@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dlspl6r0cbgg0"]
+[gd_scene load_steps=13 format=3 uid="uid://dlspl6r0cbgg0"]
 
 [ext_resource type="Script" uid="uid://5b3w40kwakl3" path="res://addons/dialogue_manager/example_balloon/ExampleBalloon.cs" id="1_36de5"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_a8ve6"]
+[ext_resource type="FontFile" uid="uid://c8fuliq5if801" path="res://Assets/Fonts/VarelaRound-Regular.ttf" id="2_cr7c4"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="3_72ixx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
@@ -41,15 +42,17 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkmqt"]
-bg_color = Color(0.10118077, 0.20207033, 0.24090111, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
+bg_color = Color(0.069775894, 0.039905295, 0.03290349, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 8
+border_width_bottom = 6
+border_color = Color(0.9951498, 0.675009, 0.8402029, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+corner_detail = 20
 
 [sub_resource type="Theme" id="Theme_qq3yp"]
 default_font_size = 20
@@ -140,9 +143,11 @@ size_flags_horizontal = 3
 
 [node name="CharacterLabel" type="RichTextLabel" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.501961)
+modulate = Color(0.89499986, 0.55, 1, 1)
 layout_mode = 2
 mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("2_cr7c4")
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "Character"
 fit_content = true
@@ -152,6 +157,7 @@ scroll_active = false
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_cr7c4")
 text = "Dialogue..."
 
 [node name="Control" type="Control" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]

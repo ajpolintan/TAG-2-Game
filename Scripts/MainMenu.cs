@@ -31,13 +31,7 @@ public partial class MainMenu : Node
 	/// </summary>
 	private void OnButtonPressed()
 	{
-		if (TargetScene != null)
-		{
-			GetTree().ChangeSceneToPacked(TargetScene);
-		}
-		else
-		{
-			GD.PrintErr("TargetScene is not assigned in the editor!");
-		}
+		SceneManager.Instance.ChangeScene("res://Scenes/Main.tscn");
+
 	}
 }

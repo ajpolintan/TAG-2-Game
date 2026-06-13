@@ -21,25 +21,27 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public float RunSpeed { get; set; }
 	
+	public Vector2 input_direction;
+	
 	public override void _Ready() {
 		_actionableFinder = GetNode<Area2D>("ActionableFinder");
 		SignalBus.Instance.PlayerDefeated += OnPlayerDefeated;
 
 	}
 	
-	//Get Input Function
-	public void GetInput() {
+	//Get Input from the Nathan Hoad Tutorial
+	public override void _UnhandledInput(InputEvent @event) {
 		 if (Input.IsActionJustPressed("interact")) {
 			var actionables = _actionableFinder.GetOverlappingAreas();
 				GD.Print(actionables.Count);
 				if (actionables.Count > 0) {
 					Actionable action = (Actionable) actionables[0];
 					action.Action();
+					input_direction = Vector2.Zero;
 					return;
 				}
 		 }
-		 Vector2 input_direction = Input.GetVector("left", "right", "up", "down");
-		 Velocity = input_direction * Speed;
+		input_direction = Input.GetVector("left", "right", "up", "down");
 	} 
 	
 	// CONNECTED TO PLAYER DEFEATED SIGNAL
@@ -64,7 +66,7 @@ public partial class Player : CharacterBody2D
 		} else {
 			Speed = WalkSpeed;
 		}
-		GetInput();
+		Velocity = input_direction * Speed;
 		MoveAndSlide();
 	}
 }

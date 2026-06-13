@@ -1,18 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbmjmbr0njw6h"]
+[gd_scene load_steps=2 format=3 uid="uid://bbmjmbr0njw6h"]
 
 [ext_resource type="Script" uid="uid://d2errg6213qyy" path="res://Scripts/PauseMenu.cs" id="1_lj4oq"]
-[ext_resource type="PackedScene" uid="uid://bdfa8eee7d7m" path="res://Scenes/Main Menu.tscn" id="2_qwhev"]
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_lj4oq")
-MenuScene = ExtResource("2_qwhev")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 500.0
-offset_top = 332.0
-offset_right = 628.0
-offset_bottom = 440.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.5
+offset_top = -82.0
+offset_right = 163.5
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ResumeButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
