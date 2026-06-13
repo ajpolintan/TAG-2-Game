@@ -16,6 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vr6xi")
 Enemy = ExtResource("2_2h7oj")
+TURN_COOLDOWN = 2
 
 [node name="EnemyHealthBar" type="ProgressBar" parent="."]
 layout_mode = 1

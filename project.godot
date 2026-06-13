@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 SignalBus="*res://Scripts/SignalBus.cs"
+SceneManager="*res://Scenes/SceneManager.tscn"
+PlayerData="*res://Resources/PlayerData.cs"
 
 [dialogue_manager]
 

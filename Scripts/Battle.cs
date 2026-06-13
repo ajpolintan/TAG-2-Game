@@ -10,6 +10,8 @@ public partial class Battle : Control
 	[Export]
 	public BaseEnemy Enemy { get; set; }
 	
+	[Export]
+	public int TURN_COOLDOWN;
 	///
 	/// Progress Bar Nodes
 	///
@@ -42,7 +44,7 @@ public partial class Battle : Control
 		_enemyTexture = GetNode<Sprite2D>("EnemyTexture");
 	
 		// Initialize Player 
-	
+		setPlayer();
 		// Initialize Enemies
 		setEnemy(Enemy); 
 		
@@ -57,6 +59,9 @@ public partial class Battle : Control
 		}
 	}
 
+	private void setPlayer() {
+		_playerHealthBar.Value = PlayerData.Instance.currentHealth;
+	}
 	// Sets up the enemy text, texture, and damage
 	private void setEnemy(BaseEnemy enemy) {
 		_enemyName.Text = enemy.name;
@@ -68,11 +73,10 @@ public partial class Battle : Control
 	//Plays whenever the Enemy Defeated Signal is Run
 	private void OnEnemyDefeated() {
 		GD.Print("Hello");
-		GetTree().ChangeSceneToFile("res://Scenes/WinScreen.tscn");
-
+		SceneManager.Instance.ChangeScene("res://Scenes/WinScreen.tscn");d
 	}
 	
-	public void OnAttackButtonPressed()
+	public async void OnAttackButtonPressed()
 	{
 		_enemyHealthBar.Value = _enemyHealthBar.Value - 20;
 	
@@ -80,12 +84,13 @@ public partial class Battle : Control
 			//Emit The Enemy Defeated Signal
 			SignalBus.Instance.EmitSignal(SignalBus.SignalName.EnemyDefeated);
 		}
+		await ToSignal(GetTree().CreateTimer(TURN_COOLDOWN), SceneTreeTimer.SignalName.Timeout);
 		EnemyTurn();
 	}
 	
 	public void OnRunButtonPressed()
 	{
-		GetTree().ChangeSceneToFile("res://Scenes/Main.tscn");
+		SceneManager.Instance.ChangeScene("res://Scenes/Main.tscn");
 	}
 	
 	public void EnemyTurn() {

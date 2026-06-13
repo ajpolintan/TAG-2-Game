@@ -42,7 +42,9 @@ public partial class Player : CharacterBody2D
 	
 	public async Task Battle()
 	{
-	  GetTree().ChangeSceneToFile("res://Scenes/Battle.tscn");
+	 //SkillTree.Instance.UseSkill(
+	  SceneManager.Instance.ChangeScene("res://Scenes/Battle.tscn");
+	 // GetTree().ChangeSceneToFile("res://Scenes/Battle.tscn");
 	}
 	
 	//Character speed movement

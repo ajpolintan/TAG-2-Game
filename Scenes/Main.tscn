@@ -3,19 +3,25 @@
 [ext_resource type="Script" uid="uid://bcif7hyp8ujty" path="res://Scripts/World.cs" id="1_50glp"]
 [ext_resource type="Script" uid="uid://u8upc21whry6" path="res://Scripts/Player.cs" id="1_idj7w"]
 [ext_resource type="Texture2D" uid="uid://c2mmmrk507373" path="res://Assets/Art/sprite 1.png" id="2_jw32o"]
-[ext_resource type="PackedScene" uid="uid://3ahpm3s2og6o" path="res://Scenes/Grid.tscn" id="3_kln2b"]
+[ext_resource type="PackedScene" uid="uid://b45qcciyj2j5t" path="res://Projectile/Projectile.tscn" id="4_50glp"]
 [ext_resource type="PackedScene" uid="uid://br3uow7ut1b8n" path="res://Scenes/Actionable.tscn" id="4_pbw6q"]
 [ext_resource type="Texture2D" uid="uid://7kj0wpo0obcg" path="res://Assets/Art/transparent apple.png" id="6_50glp"]
 [ext_resource type="Texture2D" uid="uid://bc8us0vqin56x" path="res://Assets/Art/usagi.webp" id="6_jw32o"]
 [ext_resource type="Resource" uid="uid://yt1mu3qev1e3" path="res://Dialogue/apple.dialogue" id="7_vy5pj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgh2o"]
-size = Vector2(130.5, 130)
+size = Vector2(43, 81)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v1gob"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_50glp")
+
+[node name="Projectile" parent="." instance=ExtResource("4_50glp")]
+position = Vector2(437, 296)
+
+[node name="Projectile2" parent="." instance=ExtResource("4_50glp")]
+position = Vector2(196, 412)
 
 [node name="Player" type="CharacterBody2D" parent="."]
 z_index = 1
@@ -24,8 +30,7 @@ WalkSpeed = 250.0
 RunSpeed = 400.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-visible = false
-position = Vector2(232, 302)
+position = Vector2(229.5, 296.5)
 shape = SubResource("RectangleShape2D_rgh2o")
 
 [node name="ActionableFinder" type="Area2D" parent="Player"]
@@ -44,8 +49,6 @@ texture = ExtResource("2_jw32o")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(234, 284)
-
-[node name="PauseMenu" parent="." instance=ExtResource("3_kln2b")]
 
 [node name="Actionable" parent="." instance=ExtResource("4_pbw6q")]
 position = Vector2(653, 259)
@@ -66,3 +69,6 @@ texture = ExtResource("6_50glp")
 position = Vector2(-1895.238, -314.28577)
 scale = Vector2(9.523809, 9.523809)
 DialogueResource = ExtResource("7_vy5pj")
+
+[node name="Projectile3" parent="." instance=ExtResource("4_50glp")]
+position = Vector2(38, 319)
