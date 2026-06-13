@@ -73,19 +73,23 @@ public partial class Battle : Control
 	//Plays whenever the Enemy Defeated Signal is Run
 	private void OnEnemyDefeated() {
 		GD.Print("Hello");
-		SceneManager.Instance.ChangeScene("res://Scenes/WinScreen.tscn");d
+		SceneManager.Instance.ChangeScene("res://Scenes/WinScreen.tscn");
 	}
 	
 	public async void OnAttackButtonPressed()
 	{
 		_enemyHealthBar.Value = _enemyHealthBar.Value - 20;
-	
+			
 		if (_enemyHealthBar.Value <= 0) {
 			//Emit The Enemy Defeated Signal
 			SignalBus.Instance.EmitSignal(SignalBus.SignalName.EnemyDefeated);
 		}
 		await ToSignal(GetTree().CreateTimer(TURN_COOLDOWN), SceneTreeTimer.SignalName.Timeout);
 		EnemyTurn();
+		
+		if (_playerHealthBar.Value <= 0) {
+			SignalBus.Instance.EmitSignal(SignalBus.SignalName.PlayerDefeated);
+		}
 	}
 	
 	public void OnRunButtonPressed()

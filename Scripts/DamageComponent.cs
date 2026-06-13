@@ -14,8 +14,13 @@ public partial class DamageComponent : Area2D
 
 	private void OnBodyEntered(Node2D body) {
 		GD.Print("Player got damaged!");
-		PlayerData.Instance.currentHealth =  PlayerData.Instance.currentHealth - damage;
+		PlayerData.Instance.currentHealth = PlayerData.Instance.currentHealth - damage;
 		GD.Print(PlayerData.Instance.currentHealth);
+		
+		if (PlayerData.Instance.currentHealth <= 0) {
+			SignalBus.Instance.EmitSignal(SignalBus.SignalName.PlayerDefeated);
+		}
+		
 		GetParent().QueueFree();
 	}
 }

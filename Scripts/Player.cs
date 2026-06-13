@@ -23,6 +23,8 @@ public partial class Player : CharacterBody2D
 	
 	public override void _Ready() {
 		_actionableFinder = GetNode<Area2D>("ActionableFinder");
+		SignalBus.Instance.PlayerDefeated += OnPlayerDefeated;
+
 	}
 	
 	//Get Input Function
@@ -39,6 +41,12 @@ public partial class Player : CharacterBody2D
 		 Vector2 input_direction = Input.GetVector("left", "right", "up", "down");
 		 Velocity = input_direction * Speed;
 	} 
+	
+	// CONNECTED TO PLAYER DEFEATED SIGNAL
+	private void OnPlayerDefeated() {
+		GD.Print("Player has died!");
+		SceneManager.Instance.ChangeScene("res://Scenes/GameOver.tscn");
+	}
 	
 	public async Task Battle()
 	{
