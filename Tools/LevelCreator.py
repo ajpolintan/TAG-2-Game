@@ -2,8 +2,9 @@ import json
 import sys
 from pathlib import Path
 
-from PyQt6.QtCore import Qt, QMimeData
+from PyQt6.QtCore import Qt, QMimeData, QUrl
 from PyQt6.QtGui import QPixmap, QDrag, QPainter, QImage, QAction, QKeySequence
+from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtWidgets import (
     QApplication,
     QMenu,
@@ -80,16 +81,6 @@ class ImageCell(QLabel):
             }
         """)
 
-    # def contextMenuEvent(self, event):
-    #     menu = QMenu(self)
-    #
-    #     clear_action = menu.addAction("Remove Image")
-    #
-    #     action = menu.exec(event.globalPos())
-    #
-    #     if action == clear_action:
-    #         self.clear_image()
-
     def set_image(self, path):
         if not path:
             return
@@ -114,6 +105,55 @@ class ImageCell(QLabel):
         )
 
         self.setPixmap(pix)
+
+class MusicPlayer(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.player = QMediaPlayer()
+        self.audio_output = QAudioOutput()
+
+        self.player.setAudioOutput(self.audio_output)
+        self.musicFile = "TenseSynthPad.wav"
+        self.musicFilePath = str(Path("..") / "Assets" / "Music" / self.musicFile)
+        self.player.setSource(QUrl.fromLocalFile(self.musicFilePath))
+        self.audio_output.setVolume(0.5)  # 0.0 - 1.0
+
+        button = QPushButton("Play Music")
+        button.clicked.connect(self.player.play)
+
+        stop_btn = QPushButton("Stop")
+        stop_btn.clicked.connect(self.player.stop)
+
+        select_btn = QPushButton("Select Song")
+        select_btn.clicked.connect(self.select_music_file)
+
+        self.label = QLabel("Default music selected")
+
+        layout = QVBoxLayout()
+        layout.addWidget(button)
+        layout.addWidget(stop_btn)
+        layout.addWidget(select_btn)
+        self.setLayout(layout)
+
+    def select_music_file(self):
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select Music File",
+            str(Path("..") / "Assets" / "Music" ),
+            "Audio Files (*.mp3 *.wav *.ogg *.flac *.m4a);;All Files (*)"
+        )
+
+        if file_path:
+            self.player.setSource(QUrl.fromLocalFile(file_path))
+            self.label.setText(f"Selected: {file_path.split('/')[-1]}")
+            self.load_music(file_path.split('/')[-1])
+
+        return None
+    def load_music(self, music_file):
+        self.musicFile = music_file
+        self.musicFilePath = str(Path("..") / "Assets" / "Music" / self.musicFile)
+        self.player.setSource(QUrl.fromLocalFile(self.musicFilePath))
 
 #This is the Program's Window
 class MainWindow(QWidget):
@@ -168,6 +208,8 @@ class MainWindow(QWidget):
         controls.addWidget(rebuild_button)
         controls.addWidget(export_button)
         controls.addWidget(import_button)
+        self.music_player = MusicPlayer()
+        controls.addWidget(self.music_player)
         controls.addStretch()
 
         main_layout.addLayout(controls)
@@ -522,6 +564,7 @@ class MainWindow(QWidget):
 
             grid.append(row)
         data = {
+            "music": self.music_player.musicFile,
             "grid": grid
         }
 
@@ -545,8 +588,8 @@ class MainWindow(QWidget):
                 #folder = data["folder"]
                 folder = str(Path("..")/"Assets"/"Art"/"")
                 grid = data["grid"]
-
-                self.current_folder = folder
+                music = data["music"]
+                self.music_player.load_music(music)
 
                 rows = len(grid)
                 cols = len(grid[0]) if rows > 0 else 0
