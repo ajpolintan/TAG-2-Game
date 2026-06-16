@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bc8us0vqin56x"
-path="res://.godot/imported/YahaUsagi.webp-54bec23290ab93875c08804c3187c931.ctex"
+uid="uid://ig83gpe7t3ve"
+path="res://.godot/imported/clouds.png-c6ef0f495f77227faf2d3633920e2a09.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/YahaUsagi.webp"
-dest_files=["res://.godot/imported/YahaUsagi.webp-54bec23290ab93875c08804c3187c931.ctex"]
+source_file="res://Assets/Art/clouds.png"
+dest_files=["res://.godot/imported/clouds.png-c6ef0f495f77227faf2d3633920e2a09.ctex"]
 
 [params]
 

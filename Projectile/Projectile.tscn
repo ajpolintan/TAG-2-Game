@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b45qcciyj2j5t"]
+
+[ext_resource type="Texture2D" uid="uid://b7uwk7yo3tbew" path="res://Assets/Art/exit.png" id="1_eac16"]
+[ext_resource type="Script" uid="uid://t2374ekwptfm" path="res://Projectile/ProjectileComponent.cs" id="1_whj0l"]
+[ext_resource type="Script" uid="uid://ds2dbddssa4at" path="res://Scripts/DamageComponent.cs" id="2_ghnax"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eac16"]
+size = Vector2(40, 40)
+
+[node name="Projectile" type="Node2D"]
+z_index = 2
+script = ExtResource("1_whj0l")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_eac16")
+
+[node name="DamageArea" type="Area2D" parent="."]
+position = Vector2(18, 22)
+script = ExtResource("2_ghnax")
+damage = 30
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(2, -2)
+shape = SubResource("RectangleShape2D_eac16")

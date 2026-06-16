@@ -70,6 +70,8 @@ public partial class PauseMenu : CanvasLayer
 	}
 	
 	private void OnMenuPressed() {
-		GetTree().ChangeSceneToFile("res://Scenes/Main Menu.tscn");
+		GetTree().Paused = false;
+		Visible = false;
+		SceneManager.Instance.ChangeScene("res://Scenes/Main Menu.tscn");
 	}
 }

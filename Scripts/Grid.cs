@@ -11,7 +11,7 @@ public partial class Grid : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadJsonTileMap("res://Json/path_test.json");
+		LoadJsonTileMap("res://Json/path_test_v2.json");
 	}
 	
 	public void LoadJsonTileMap(string jsonPath) {
@@ -57,7 +57,7 @@ public partial class Grid : Node
 	public Sprite2D lookup(string textureName, float x, float y) {
 		Sprite2D sprite = new Sprite2D();
 		if (textureName == null) {
-			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/hachiware.webp"); 
+			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/green.png"); 
 		} else {
 			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/" + textureName); 
 		}

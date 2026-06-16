@@ -10,6 +10,9 @@ public partial class SignalBus : Node
 	[Signal]
 	public delegate void EnemyDefeatedEventHandler();
 	
+	[Signal]
+	public delegate void PlayerDefeatedEventHandler();
+	
 	public override void _Ready()
 	{
 		Instance = this;
