@@ -1,20 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://bwwd0s3iq2tsd"]
+[gd_scene load_steps=11 format=3 uid="uid://bwwd0s3iq2tsd"]
 
 [ext_resource type="Script" uid="uid://bcif7hyp8ujty" path="res://Scripts/World.cs" id="1_50glp"]
-[ext_resource type="Script" uid="uid://u8upc21whry6" path="res://Scripts/Player.cs" id="1_idj7w"]
-[ext_resource type="Texture2D" uid="uid://c2mmmrk507373" path="res://Assets/Art/sprite 1.png" id="2_jw32o"]
 [ext_resource type="PackedScene" uid="uid://bbmjmbr0njw6h" path="res://Scenes/PauseMenu.tscn" id="2_vy5pj"]
 [ext_resource type="PackedScene" uid="uid://b45qcciyj2j5t" path="res://Projectile/Projectile.tscn" id="4_50glp"]
 [ext_resource type="PackedScene" uid="uid://br3uow7ut1b8n" path="res://Scenes/Actionable.tscn" id="4_pbw6q"]
+[ext_resource type="PackedScene" uid="uid://cx8tj56uk6fwc" path="res://Scenes/Player.tscn" id="4_vy5pj"]
 [ext_resource type="Texture2D" uid="uid://7kj0wpo0obcg" path="res://Assets/Art/transparent apple.png" id="6_50glp"]
 [ext_resource type="Texture2D" uid="uid://bc8us0vqin56x" path="res://Assets/Art/usagi.webp" id="6_jw32o"]
 [ext_resource type="Resource" uid="uid://yt1mu3qev1e3" path="res://Dialogue/apple.dialogue" id="7_vy5pj"]
+[ext_resource type="PackedScene" uid="uid://3ahpm3s2og6o" path="res://Scenes/Grid.tscn" id="9_bmxlf"]
 [ext_resource type="Texture2D" uid="uid://ig83gpe7t3ve" path="res://Assets/Art/clouds.png" id="10_bmxlf"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgh2o"]
-size = Vector2(43, 81)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_v1gob"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_50glp")
@@ -27,32 +22,7 @@ position = Vector2(437, 296)
 [node name="Projectile2" parent="." instance=ExtResource("4_50glp")]
 position = Vector2(196, 412)
 
-[node name="Player" type="CharacterBody2D" parent="."]
-z_index = 1
-script = ExtResource("1_idj7w")
-WalkSpeed = 250.0
-RunSpeed = 400.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(229.5, 296.5)
-shape = SubResource("RectangleShape2D_rgh2o")
-
-[node name="ActionableFinder" type="Area2D" parent="Player"]
-position = Vector2(215, 308)
-scale = Vector2(0.35416675, 0.35416675)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/ActionableFinder"]
-position = Vector2(45.176456, -39.5294)
-scale = Vector2(19.43, 19.43)
-shape = SubResource("CircleShape2D_v1gob")
-
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-position = Vector2(231, 286)
-scale = Vector2(2.0312505, 2.0312505)
-texture = ExtResource("2_jw32o")
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(234, 284)
+[node name="Player" parent="." instance=ExtResource("4_vy5pj")]
 
 [node name="Actionable" parent="." instance=ExtResource("4_pbw6q")]
 position = Vector2(653, 259)
@@ -77,7 +47,11 @@ DialogueResource = ExtResource("7_vy5pj")
 [node name="Projectile3" parent="." instance=ExtResource("4_50glp")]
 position = Vector2(38, 319)
 
+[node name="Grid" parent="." instance=ExtResource("9_bmxlf")]
+scale = Vector2(4.225, 4.225)
+
 [node name="Clouds" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(406, 284)
 scale = Vector2(1.3319296, 2.1754618)
 texture = ExtResource("10_bmxlf")

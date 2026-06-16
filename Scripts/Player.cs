@@ -13,6 +13,8 @@ public partial class Player : CharacterBody2D
 	/// </summary>
 	private Area2D _actionableFinder; 
 	
+	private AnimatedSprite2D _animatedSprite;
+	
 	public float Speed;
 	
 	[Export]
@@ -25,6 +27,8 @@ public partial class Player : CharacterBody2D
 	
 	public override void _Ready() {
 		_actionableFinder = GetNode<Area2D>("ActionableFinder");
+		_animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		_animatedSprite.Play("idle");
 		SignalBus.Instance.PlayerDefeated += OnPlayerDefeated;
 
 	}
@@ -42,24 +46,37 @@ public partial class Player : CharacterBody2D
 				}
 		 }
 		input_direction = Input.GetVector("left", "right", "up", "down");
+		// go right
+	
+		GD.Print(input_direction);
 	} 
 	
-	// CONNECTED TO PLAYER DEFEATED SIGNAL
-	private void OnPlayerDefeated() {
-		GD.Print("Player has died!");
-		SceneManager.Instance.ChangeScene("res://Scenes/GameOver.tscn");
+	private void HandleAnimation() {
+		if (input_direction.X > 0) {
+			_animatedSprite.Play("walk");
+			_animatedSprite.FlipH = true;
+		} else if  (input_direction.X < 0) {
+			_animatedSprite.Play("walk");
+			_animatedSprite.FlipH = false;
+		} else if (input_direction.Y > 0) {
+			_animatedSprite.Play("walk_down");
+		} else if (input_direction.Y < 0) {
+			_animatedSprite.Play("walk_up");
+		} 
+		else {
+			_animatedSprite.Play("idle");
+		}
 	}
 	
 	public async Task Battle()
 	{
-	 //SkillTree.Instance.UseSkill(
 	  SceneManager.Instance.ChangeScene("res://Scenes/Battle.tscn");
-	 // GetTree().ChangeSceneToFile("res://Scenes/Battle.tscn");
 	}
 	
 	//Character speed movement
 	public override void _PhysicsProcess(double delta)
 	{
+		HandleAnimation();
 		if (Input.IsActionPressed("run"))
 		{
 			Speed = RunSpeed;
@@ -69,4 +86,11 @@ public partial class Player : CharacterBody2D
 		Velocity = input_direction * Speed;
 		MoveAndSlide();
 	}
+	
+	// CONNECTED TO PLAYER DEFEATED SIGNAL
+	private void OnPlayerDefeated() {
+		GD.Print("Player has died!");
+		SceneManager.Instance.ChangeScene("res://Scenes/GameOver.tscn");
+	}
+
 }
