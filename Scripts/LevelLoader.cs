@@ -3,14 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
-public partial class Grid : Node
+public partial class LevelLoader : Node
 {	
+	
+  
+ 	public AudioStreamPlayer _audioPlayer;
+
    // Custom Texture to Put In
    [Export] public Texture2D texture { get; set; }
    [Export] public string JsonTileMapPath { get; set; }
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_audioPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
 		LoadJsonTileMap(JsonTileMapPath);
 	}
 	
@@ -31,10 +36,9 @@ public partial class Grid : Node
 		{
 			GD.Print("Deserialization failed");
 		}
-
-		GD.Print(person.Name);
-		GD.Print(person.Age);
-	
+		
+		LoadJsonMusic(person.Music);
+		
 		for (int i = 0; i < person.Grid.Length; i++)
 		{
 			for (int j = 0; j < person.Grid[i].Length; j++)
@@ -46,10 +50,16 @@ public partial class Grid : Node
 		}		
 	}
 	
+
 	public void ClearLevel() { 
 		foreach (Node n in GetChildren()) {
 			n.QueueFree();
 		}
+	}
+
+	public void LoadJsonMusic(string musicName) {
+		 _audioPlayer.Stream = GD.Load<AudioStream>("res://Assets/Music/" + musicName);
+		_audioPlayer.Play(); 
 	}
 	
 	// Looks up a texture name and puts coords
@@ -80,6 +90,7 @@ public partial class Grid : Node
 public class Person
 {
 	public string Name { get; set; } = "";
+	public string Music { get; set; } = "";
 	public int Age { get; set; }
 	public string[][] Grid { get; set; }
 }

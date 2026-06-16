@@ -49,7 +49,7 @@ position = Vector2(38, 319)
 
 [node name="LevelLoader" parent="." instance=ExtResource("9_utdxf")]
 scale = Vector2(4.225, 4.225)
-JsonTileMapPath = "res://Json/grass_test.json"
+JsonTileMapPath = "res://Json/test_json.json"
 
 [node name="Clouds" type="Sprite2D" parent="."]
 visible = false
