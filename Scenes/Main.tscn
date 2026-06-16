@@ -47,8 +47,9 @@ DialogueResource = ExtResource("7_vy5pj")
 [node name="Projectile3" parent="." instance=ExtResource("4_50glp")]
 position = Vector2(38, 319)
 
-[node name="Grid" parent="." instance=ExtResource("9_bmxlf")]
+[node name="LevelLoader" parent="." instance=ExtResource("9_bmxlf")]
 scale = Vector2(4.225, 4.225)
+JsonTileMapPath = "res://Json/grass_test.json"
 
 [node name="Clouds" type="Sprite2D" parent="."]
 visible = false

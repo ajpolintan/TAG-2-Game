@@ -48,7 +48,6 @@ public partial class Player : CharacterBody2D
 		input_direction = Input.GetVector("left", "right", "up", "down");
 		// go right
 	
-		GD.Print(input_direction);
 	} 
 	
 	private void HandleAnimation() {
@@ -70,7 +69,7 @@ public partial class Player : CharacterBody2D
 	
 	public async Task Battle()
 	{
-	  SceneManager.Instance.ChangeScene("res://Scenes/Battle.tscn");
+	  SceneManager.Instance.ChangeScene("res://Scenes/Level2.tscn");
 	}
 	
 	//Character speed movement
