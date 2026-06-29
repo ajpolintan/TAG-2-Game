@@ -1,9 +1,8 @@
 import json
 import sys
 from pathlib import Path
-
 from PyQt6.QtCore import Qt, QMimeData, QUrl
-from PyQt6.QtGui import QPixmap, QDrag, QPainter, QImage, QAction, QKeySequence
+from PyQt6.QtGui import QPixmap, QDrag, QPainter, QImage, QAction, QKeySequence, QTransform
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtWidgets import (
     QApplication,
@@ -16,10 +15,10 @@ from PyQt6.QtWidgets import (
     QHBoxLayout,
     QGridLayout,
     QScrollArea,
+    QStackedLayout,
     QSpinBox,
-    QMessageBox,
+    QMessageBox, QDoubleSpinBox, QLineEdit, QFormLayout,
 )
-from pathlib import Path
 
 def resolve_path(folder, name):
     return str(Path(folder) / name)
@@ -32,6 +31,298 @@ IMAGE_EXTENSIONS = {
     ".gif",
     ".webp",
 }
+class PlacedAsset(QLabel):
+    def __init__(self, image_path, parent):
+        super().__init__(parent)
+
+        self.image_path = image_path
+
+        self.attributes = {
+            "name": Path(image_path).stem,
+            "type": "object",
+            "x": 0,
+            "y": 0,
+            "scale": 1.0,
+            "rotation": 0,
+        }
+
+        self.original_pixmap = QPixmap(image_path)
+        self.base_size = self.original_pixmap.size()
+
+        #self.update_transform()
+        self.setPixmap(QPixmap(self.image_path))
+
+        self.dragging = False
+        self.drag_offset = None
+
+    def update_transform(self, zoom=1.0):
+
+        scale = self.attributes["scale"] * zoom
+        angle = self.attributes["rotation"]
+
+        # Keep current center
+        center_x = self.x() + self.width() / 2
+        center_y = self.y() + self.height() / 2
+
+        pix = self.original_pixmap
+
+        new_width = int(pix.width() * scale)
+        new_height = int(pix.height() * scale)
+
+        pix = pix.scaled(
+            new_width,
+            new_height,
+            Qt.AspectRatioMode.KeepAspectRatio,
+            Qt.TransformationMode.SmoothTransformation
+        )
+
+        transform = QTransform()
+        transform.rotate(angle)
+
+        pix = pix.transformed(
+            transform,
+            Qt.TransformationMode.SmoothTransformation
+        )
+
+        self.setPixmap(pix)
+        self.setFixedSize(pix.size())
+
+        # restore center
+        self.move(
+            int(center_x - self.width() / 2),
+            int(center_y - self.height() / 2)
+        )
+
+    def update_pixmap(self, size):
+        pix = QPixmap(self.image_path)
+
+        self.setPixmap(
+            pix.scaled(
+                size,
+                size,
+                Qt.AspectRatioMode.KeepAspectRatio,
+                Qt.TransformationMode.SmoothTransformation
+            )
+        )
+
+        self.setFixedSize(size, size)
+
+    def mouseMoveEvent(self, event):
+        if not self.dragging:
+            return
+
+        new_pos = self.pos() + event.pos() - self.drag_offset
+
+        self.move(new_pos)
+
+        zoom = self.parent().main_window.zoom
+
+        self.attributes["x"] = (self.x() + self.width() / 2
+                               ) / zoom
+
+        self.attributes["y"] = (self.y() + self.height() / 2
+                               ) / zoom
+
+        event.accept()
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.MouseButton.RightButton:
+            self.delete_asset()
+            event.accept()
+            return
+
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.parent().main_window.select_placed_asset(self)
+
+            self.dragging = True
+            self.drag_offset = event.pos()
+
+            event.accept()
+
+    def mouseReleaseEvent(self, event):
+        self.dragging = False
+        event.accept()
+
+    def delete_asset(self):
+        canvas = self.parent()
+
+        if self in canvas.assets:
+            canvas.assets.remove(self)
+
+        if canvas.main_window.selected_asset is self:
+            canvas.main_window.clear_asset_selection()
+
+        self.deleteLater()
+
+    def reposition(self, zoom):
+        self.move(
+            int(self.attributes["x"] * zoom - self.width() / 2),
+            int(self.attributes["y"] * zoom - self.height() / 2)
+        )
+
+#Attributes for objects
+class AssetProperties(QWidget):
+    def __init__(self, main_window):
+        super().__init__()
+
+        self.main_window = main_window
+        self.asset = None
+
+        layout = QFormLayout()
+
+        self.name = QLineEdit()
+
+        self.type = QLineEdit()
+
+        self.scale = QDoubleSpinBox()
+        self.scale.setRange(0.1, 10)
+        self.scale.setSingleStep(0.1)
+
+        self.rotation = QDoubleSpinBox()
+        self.rotation.setRange(0, 360)
+
+        layout.addRow("Name", self.name)
+        layout.addRow("Type", self.type)
+        layout.addRow("Scale", self.scale)
+        layout.addRow("Rotation", self.rotation)
+
+        self.setLayout(layout)
+
+        self.name.editingFinished.connect(self.update_asset)
+        self.type.editingFinished.connect(self.update_asset)
+        self.scale.valueChanged.connect(self.update_asset)
+        self.rotation.valueChanged.connect(self.update_asset)
+
+    def show_asset(self, asset):
+        self.asset = asset
+
+        self.name.setText(asset.attributes["name"])
+        self.type.setText(asset.attributes["type"])
+
+        self.scale.blockSignals(True)
+        self.rotation.blockSignals(True)
+
+        self.scale.setValue(asset.attributes["scale"])
+        self.rotation.setValue(asset.attributes["rotation"])
+
+        self.scale.blockSignals(False)
+        self.rotation.blockSignals(False)
+
+
+    def update_asset(self):
+
+        if not self.asset:
+            return
+
+        self.asset.attributes["name"] = self.name.text()
+        self.asset.attributes["type"] = self.type.text()
+
+        self.asset.attributes["scale"] = self.scale.value()
+        self.asset.attributes["rotation"] = self.rotation.value()
+
+        x = self.asset.x()
+        y = self.asset.y()
+
+        self.asset.update_transform(self.main_window.zoom)
+
+        self.asset.move(x, y)
+#Where the assets are placed
+class AssetCanvas(QWidget):
+    def __init__(self, main_window):
+        super().__init__()
+
+        self.main_window = main_window
+
+        self.setAcceptDrops(True)
+
+        self.setStyleSheet("""
+            background: transparent;
+        """)
+
+        self.assets = []
+        self.setMouseTracking(True)
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasText():
+            event.acceptProposedAction()
+
+    def dropEvent(self, event):
+        path = event.mimeData().text()
+
+        asset = PlacedAsset(path, self)
+
+        # Convert drop position to canvas coordinates
+        pos = event.position().toPoint()
+
+        zoom = self.main_window.zoom
+
+        x = pos.x()
+        y = pos.y()
+
+        asset.update_transform(self.main_window.zoom)
+
+        asset.attributes["x"] = x / zoom
+        asset.attributes["y"] = y / zoom
+
+        asset.move(
+            int(x - asset.width() / 2),
+            int(y - asset.height() / 2)
+        )
+
+        asset.show()
+
+        self.assets.append(asset)
+
+        event.acceptProposedAction()
+
+
+#This is the asset object list
+class AssetLabel(QLabel):
+    def __init__(self, image_path, main_window):
+        super().__init__()
+
+        self.image_path = image_path
+        self.main_window = main_window
+
+        pix = QPixmap(image_path)
+        pix = QPixmap(image_path)
+
+        if pix.isNull():
+            print("FAILED:", image_path)
+        else:
+            print("SUCCESS:", image_path)
+        pix = pix.scaled(
+            100,
+            100,
+            Qt.AspectRatioMode.KeepAspectRatio,
+            Qt.TransformationMode.SmoothTransformation,
+        )
+
+        self.setPixmap(pix)
+        self.setFixedSize(110, 110)
+        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+    def mousePressEvent(self, event):
+        if event.button() != Qt.MouseButton.LeftButton:
+            return
+
+        self.main_window.select_asset(self)
+        super().mousePressEvent(event)
+    def mouseMoveEvent(self, event):
+        if not (event.buttons() & Qt.MouseButton.LeftButton):
+            return
+
+        drag = QDrag(self)
+
+        mime = QMimeData()
+        mime.setText(self.image_path)
+
+        drag.setMimeData(mime)
+
+        if self.pixmap():
+            drag.setPixmap(self.pixmap())
+
+        drag.exec()
 
 #This is the imported folders Image's object
 class ThumbnailLabel(QLabel):
@@ -82,6 +373,12 @@ class ImageCell(QLabel):
         """)
 
     def set_image(self, path):
+        if not path:
+            return
+        self.image_path = path
+        self.refresh_pixmap()
+
+    def set_asset(self, path):
         if not path:
             return
         self.image_path = path
@@ -164,8 +461,10 @@ class MainWindow(QWidget):
         self.resize(1200, 800)
 
         self.zoom = 1.0
-        self.selected_image = None
+        self.selected_tile = None
+        self.selected_asset_image = None
         self.selected_thumbnail = None
+        self.selected_asset = None
 
         self.painting = False
         self.painting_mode = None
@@ -199,7 +498,17 @@ class MainWindow(QWidget):
         self.toggle_grid_btn.clicked.connect(self.toggle_grid)
 
         controls.addWidget(self.toggle_grid_btn)
+        self.asset_layer_visible = True
 
+        self.toggle_asset_layer_btn = QPushButton(
+            "Hide Asset Layer"
+        )
+
+        self.toggle_asset_layer_btn.clicked.connect(
+            self.toggle_asset_layer
+        )
+
+        controls.addWidget(self.toggle_asset_layer_btn)
         controls.addWidget(self.load_button)
         controls.addWidget(QLabel("Rows"))
         controls.addWidget(self.rows_spin)
@@ -228,6 +537,16 @@ class MainWindow(QWidget):
 
         body.addWidget(thumb_scroll, 1)
 
+        self.asset_scroll = QScrollArea()
+        self.asset_scroll.setWidgetResizable(True)
+
+        self.asset_container = QWidget()
+        self.asset_layout = QVBoxLayout(self.asset_container)
+
+        self.asset_scroll.setWidget(self.asset_container)
+
+        body.addWidget(self.asset_scroll, 1)
+
         # Grid panel
         self.grid_container = QWidget()
         self.grid_layout = QGridLayout(self.grid_container)
@@ -237,14 +556,76 @@ class MainWindow(QWidget):
 
         grid_scroll = QScrollArea()
         grid_scroll.setWidgetResizable(True)
-        grid_scroll.setWidget(self.grid_container)
+
+        self.asset_canvas = AssetCanvas(self)
+
+        self.grid_stack = QWidget()
+
+        stack = QStackedLayout(self.grid_stack)
+        stack.setStackingMode(QStackedLayout.StackingMode.StackAll)
+
+        stack.addWidget(self.grid_container)
+        stack.addWidget(self.asset_canvas)
+
+        grid_scroll.setWidget(self.grid_stack)
 
         body.addWidget(grid_scroll, 3)
+
+        self.asset_canvas.raise_()
+
+        self.asset_properties = AssetProperties(self)
+
+        body.addWidget(
+            self.asset_properties,
+            1
+        )
+
+        self.asset_properties.hide()
 
         self.cells = []
 
         self.build_grid()
         self.load_folder()
+
+    def select_placed_asset(self, asset):
+
+        if self.selected_asset and self.selected_asset is not asset:
+            try:
+                self.selected_asset.setStyleSheet("")
+            except RuntimeError:
+                self.selected_asset = None
+
+        self.selected_asset = asset
+
+        asset.setStyleSheet("""
+            QLabel {
+                border: 1px solid yellow;
+                padding: -1px; 
+            }
+        """)
+
+        self.asset_properties.show()
+        self.asset_properties.show_asset(asset)
+
+    def toggle_asset_layer(self):
+        self.asset_layer_visible = not self.asset_layer_visible
+
+        # Hide/show placed objects
+        self.asset_canvas.setVisible(self.asset_layer_visible)
+
+        # Hide/show asset selection panel
+        self.asset_scroll.setVisible(self.asset_layer_visible)
+
+        self.toggle_asset_layer_btn.setText(
+            "Hide Asset Layer"
+            if self.asset_layer_visible
+            else "Show Asset Layer"
+        )
+
+    def clear_asset_selection(self):
+        self.selected_asset = None
+        self.asset_properties.asset = None
+        self.asset_properties.hide()
     #Zoom on Grid
     def apply_zoom(self):
         size = int(32 * self.zoom)
@@ -252,6 +633,23 @@ class MainWindow(QWidget):
         for cell in self.cells:
             cell.setFixedSize(size, size)
             cell.refresh_pixmap(size)
+
+        rows = self.rows_spin.value()
+        cols = self.cols_spin.value()
+
+        self.asset_canvas.resize(
+            cols * size,
+            rows * size
+        )
+
+        # Scale placed assets
+
+
+        for asset in self.asset_canvas.assets:
+            asset.update_transform(self.zoom)
+            asset.reposition(self.zoom)
+
+
     #When mouse wheel and ctrl(Mac key on mac) zoom on grid
     def wheelEvent(self, event):
         if event.modifiers() == Qt.KeyboardModifier.ControlModifier:
@@ -270,13 +668,27 @@ class MainWindow(QWidget):
             return
 
         super().wheelEvent(event)
+    #Click on assets, allows you to "paint" with it later on the grid
+    def select_asset(self, asset):
+        if self.selected_asset:
+            self.selected_asset.setStyleSheet("")
+
+        self.selected_asset = asset
+        self.selected_asset_image = asset.image_path
+
+        asset.setStyleSheet("""
+            QLabel {
+                border: 2px solid blue;
+            }
+        """)
+
     #Click on thumbnail, allows you to "paint" with it later on the grid
     def select_thumbnail(self, thumbnail):
         if self.selected_thumbnail:
             self.selected_thumbnail.setStyleSheet("")
 
         self.selected_thumbnail = thumbnail
-        self.selected_image = thumbnail.image_path
+        self.selected_tile = thumbnail.image_path
 
         thumbnail.setStyleSheet("""
             QLabel {
@@ -303,6 +715,15 @@ class MainWindow(QWidget):
                 self.grid_layout.addWidget(cell, r, c)
 
                 self.cells.append(cell)
+        rows = self.rows_spin.value()
+        cols = self.cols_spin.value()
+
+        size = int(32 * self.zoom)
+
+        self.asset_canvas.resize(
+            cols * size,
+            rows * size
+        )
     #load Folder button function
     #Imports all images in folder
     def load_folder(self):
@@ -314,7 +735,7 @@ class MainWindow(QWidget):
             if widget:
                 widget.deleteLater()
 
-        folder = str(Path("..")/"Assets"/"Art"/"")
+        folder = str(Path("..")/"Assets"/"Art"/"Tiles")
 
         paths = sorted(Path(folder).iterdir())
 
@@ -327,6 +748,18 @@ class MainWindow(QWidget):
             thumb = ThumbnailLabel(str(path), self)
             self.thumb_layout.addWidget(thumb)
             count += 1
+
+        asset_folder = str(Path("..") / "Assets" / "Art" / "LevelAssets")
+        paths = sorted(Path(asset_folder).iterdir())
+
+        for path in paths:
+            if path.suffix.lower() not in IMAGE_EXTENSIONS:
+                continue
+
+            thumb = AssetLabel(str(path), self)
+            self.asset_layout.addWidget(thumb)
+
+
 
         self.thumb_layout.addStretch()
 
@@ -368,8 +801,10 @@ class MainWindow(QWidget):
             cell.clear_image()
 
         elif self.painting_mode == "paint":
-            if self.selected_image:
-                cell.set_image(self.selected_image)
+            if self.selected_tile:
+                cell.set_image(self.selected_tile)
+            # if self.selected_asset_image:
+            #     cell.set_asset(self.selected_asset_image)
     #Grid Helper Function to get cell at current mouse position
     def cell_at_pos(self, pos):
         grid_pos = self.grid_container.mapFrom(self, pos)
@@ -381,7 +816,13 @@ class MainWindow(QWidget):
         return None
     #Paint or erase on grid when mouse is pressed
     def mousePressEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton and self.selected_image:
+
+        widget = self.childAt(event.pos())
+
+        if isinstance(widget, PlacedAsset):
+            return
+
+        if event.button() == Qt.MouseButton.LeftButton:
             self.painting = True
             self.painting_mode = "paint"
             self.paint_at(event.pos())
@@ -390,8 +831,6 @@ class MainWindow(QWidget):
             self.painting = True
             self.painting_mode = "erase"
             self.paint_at(event.pos())
-
-        event.accept()
     #Paint or erase on grid when mouse is moved
     def mouseMoveEvent(self, event):
         if self.painting:
@@ -563,9 +1002,29 @@ class MainWindow(QWidget):
                 row.append(name)
 
             grid.append(row)
+
+        asset_data = []
+
+        for asset in self.asset_canvas.assets:
+            asset.attributes["x"] = (
+                                            asset.x() + asset.width() / 2
+                                    ) / self.zoom
+
+            asset.attributes["y"] = (
+                                            asset.y() + asset.height() / 2
+                                    ) / self.zoom
+
+            asset_data.append({
+                "image": Path(asset.image_path).name,
+                "attributes": asset.attributes.copy()
+            })
+
+
         data = {
             "music": self.music_player.musicFile,
-            "grid": grid
+            #"spawn": [["level": "level1.json", "x": 0, "y": 0]],
+            "grid": grid,
+            "assets": asset_data
         }
 
         with open(file_path, "w") as f:
@@ -586,9 +1045,13 @@ class MainWindow(QWidget):
                     data = json.load(f)
 
                 #folder = data["folder"]
-                folder = str(Path("..")/"Assets"/"Art"/"")
+                folder = str(Path("..")/"Assets"/"Art"/"Tiles")
                 grid = data["grid"]
                 music = data["music"]
+                # Load placed assets
+                assets = data.get("assets", [])
+
+
                 self.music_player.load_music(music)
 
                 rows = len(grid)
@@ -598,6 +1061,37 @@ class MainWindow(QWidget):
                 self.cols_spin.setValue(cols)
 
                 self.build_grid()
+
+                # Remove existing placed assets
+                for asset in self.asset_canvas.assets:
+                    asset.deleteLater()
+
+                self.asset_canvas.assets.clear()
+
+                asset_folder = Path("..") / "Assets" / "Art" / "LevelAssets"
+
+                for info in assets:
+                    image_path = str(asset_folder / info["image"])
+
+                    asset = PlacedAsset(
+                        image_path,
+                        self.asset_canvas
+                    )
+
+                    loaded_attributes = info.get("attributes", {})
+
+                    asset.attributes.update(
+                        loaded_attributes
+                    )
+
+                    zoom = self.zoom
+
+                    asset.update_transform(self.zoom)
+                    asset.reposition(self.zoom)
+
+                    asset.show()
+
+                    self.asset_canvas.assets.append(asset)
 
                 for r, row in enumerate(grid):
                     for c, name in enumerate(row):
