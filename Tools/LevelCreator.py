@@ -599,7 +599,8 @@ class MainWindow(QWidget):
 
         asset.setStyleSheet("""
             QLabel {
-                border: 2px solid yellow;
+                border: 1px solid yellow;
+                padding: -1px; 
             }
         """)
 
@@ -734,7 +735,7 @@ class MainWindow(QWidget):
             if widget:
                 widget.deleteLater()
 
-        folder = str(Path("..")/"Assets"/"Art"/"Tile")
+        folder = str(Path("..")/"Assets"/"Art"/"Tiles")
 
         paths = sorted(Path(folder).iterdir())
 
@@ -1044,7 +1045,7 @@ class MainWindow(QWidget):
                     data = json.load(f)
 
                 #folder = data["folder"]
-                folder = str(Path("..")/"Assets"/"Art"/"")
+                folder = str(Path("..")/"Assets"/"Art"/"Tiles")
                 grid = data["grid"]
                 music = data["music"]
                 # Load placed assets
