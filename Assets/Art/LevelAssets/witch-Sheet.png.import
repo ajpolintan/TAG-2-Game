@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b81qnrjxbnw53"
-path="res://.godot/imported/hachiware.webp-c8ac2f866014f5f801c0dad6aedf585f.ctex"
+uid="uid://cajj7crq3p2xk"
+path="res://.godot/imported/witch-Sheet.png-829928c65865b7b1fde409517cb7f2cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/hachiware.webp"
-dest_files=["res://.godot/imported/hachiware.webp-c8ac2f866014f5f801c0dad6aedf585f.ctex"]
+source_file="res://Assets/Art/LevelAssets/witch-Sheet.png"
+dest_files=["res://.godot/imported/witch-Sheet.png-829928c65865b7b1fde409517cb7f2cc.ctex"]
 
 [params]
 

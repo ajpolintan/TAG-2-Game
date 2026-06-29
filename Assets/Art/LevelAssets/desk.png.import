@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf4oojo0v21s6"
-path="res://.godot/imported/white-square.png-fd592f5d3830cd3cb7877338920599be.ctex"
+uid="uid://tn2dse3tx2o4"
+path="res://.godot/imported/desk.png-ccd0d63fece4580584c55aaa8b37cdef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/white-square.png"
-dest_files=["res://.godot/imported/white-square.png-fd592f5d3830cd3cb7877338920599be.ctex"]
+source_file="res://Assets/Art/LevelAssets/desk.png"
+dest_files=["res://.godot/imported/desk.png-ccd0d63fece4580584c55aaa8b37cdef.ctex"]
 
 [params]
 

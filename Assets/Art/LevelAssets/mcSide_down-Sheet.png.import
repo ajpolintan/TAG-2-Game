@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cm1qdx7oq70t8"
-path="res://.godot/imported/green.png-a06c0d46a3fb5c29c0f4123cf50bb5cf.ctex"
+uid="uid://decxdeir1t1ye"
+path="res://.godot/imported/mcSide_down-Sheet.png-7ce47625ca669f90aa35365d286a4065.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/green.png"
-dest_files=["res://.godot/imported/green.png-a06c0d46a3fb5c29c0f4123cf50bb5cf.ctex"]
+source_file="res://Assets/Art/LevelAssets/mcSide_down-Sheet.png"
+dest_files=["res://.godot/imported/mcSide_down-Sheet.png-7ce47625ca669f90aa35365d286a4065.ctex"]
 
 [params]
 

@@ -23,11 +23,10 @@ public partial class SceneManager : CanvasLayer
 	//Running this will change the scene and also will affect transitions
 	public async Task ChangeScene(string scene) {
 		transitionColor.Visible = true;
-
 		animPlayer.Play("transition_out");
-		
 		//Wait until Animation is finished to Change Scene
 		await ToSignal(animPlayer, AnimationPlayer.SignalName.AnimationFinished);
+		SignalBus.Instance.EmitSignal(SignalBus.SignalName.ClearLevel);
 		GetTree().ChangeSceneToFile(scene);
 		animPlayer.PlayBackwards("transition_out");
 		await ToSignal(animPlayer, AnimationPlayer.SignalName.AnimationFinished);

@@ -3,15 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
-public partial class Grid : Node
+public partial class LevelLoader : Node
 {	
+	
+  
+ 	public AudioStreamPlayer _audioPlayer;
+
    // Custom Texture to Put In
    [Export] public Texture2D texture { get; set; }
-
+   [Export] public string JsonTileMapPath { get; set; }
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadJsonTileMap("res://Json/path_test_v2.json");
+		SignalBus.Instance.ClearLevel += OnClearLevel;
+		_audioPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+		LoadJsonTileMap(JsonTileMapPath);
+		GD.Print("Finished Loading Level");
 	}
 	
 	public void LoadJsonTileMap(string jsonPath) {
@@ -31,17 +38,14 @@ public partial class Grid : Node
 		{
 			GD.Print("Deserialization failed");
 		}
-
-		GD.Print(person.Name);
-		GD.Print(person.Age);
-	
+		
+		LoadJsonMusic(person.Music);
+		
 		for (int i = 0; i < person.Grid.Length; i++)
 		{
 			for (int j = 0; j < person.Grid[i].Length; j++)
 			{
-				GD.Print(person.Grid[i][j]);
 				AddChild(lookup(person.Grid[i][j], i * 32 + 16, j * 32 + 16));
-
 			}
 		}		
 	}
@@ -52,16 +56,26 @@ public partial class Grid : Node
 		}
 	}
 	
+	//Run with ClearLevel Signal is emitted
+	private void OnClearLevel() {
+		GD.Print("Level Cleared");
+		ClearLevel(); 	
+	}
+
+	public void LoadJsonMusic(string musicName) {
+		 _audioPlayer.Stream = GD.Load<AudioStream>("res://Assets/Music/" + musicName);
+		_audioPlayer.Play(); 
+	}
+	
 	// Looks up a texture name and puts coords
 	// Returns a Sprite2D
 	public Sprite2D lookup(string textureName, float x, float y) {
 		Sprite2D sprite = new Sprite2D();
 		if (textureName == null) {
-			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/green.png"); 
+			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/Tiles/wood_floor.png"); 
 		} else {
-			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/" + textureName); 
+			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/Tiles/" + textureName); 
 		}
-		
 		sprite.Position = new Vector2(x, y); 
 		return sprite; 
 	}
@@ -80,6 +94,7 @@ public partial class Grid : Node
 public class Person
 {
 	public string Name { get; set; } = "";
+	public string Music { get; set; } = "";
 	public int Age { get; set; }
 	public string[][] Grid { get; set; }
 }
