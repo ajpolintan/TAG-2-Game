@@ -13,6 +13,10 @@ public partial class SignalBus : Node
 	[Signal]
 	public delegate void PlayerDefeatedEventHandler();
 	
+	[Signal]
+	public delegate void ClearLevelEventHandler();
+	
+	//when level changes, emit a signal to clear the level
 	public override void _Ready()
 	{
 		Instance = this;

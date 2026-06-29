@@ -15,8 +15,10 @@ public partial class LevelLoader : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		SignalBus.Instance.ClearLevel += OnClearLevel;
 		_audioPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
 		LoadJsonTileMap(JsonTileMapPath);
+		GD.Print("Finished Loading Level");
 	}
 	
 	public void LoadJsonTileMap(string jsonPath) {
@@ -43,18 +45,21 @@ public partial class LevelLoader : Node
 		{
 			for (int j = 0; j < person.Grid[i].Length; j++)
 			{
-				GD.Print(person.Grid[i][j]);
 				AddChild(lookup(person.Grid[i][j], i * 32 + 16, j * 32 + 16));
-
 			}
 		}		
 	}
 	
-
 	public void ClearLevel() { 
 		foreach (Node n in GetChildren()) {
 			n.QueueFree();
 		}
+	}
+	
+	//Run with ClearLevel Signal is emitted
+	private void OnClearLevel() {
+		GD.Print("Level Cleared");
+		ClearLevel(); 	
 	}
 
 	public void LoadJsonMusic(string musicName) {

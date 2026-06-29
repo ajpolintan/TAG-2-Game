@@ -1,0 +1,40 @@
+{
+  "music": "TenseSynthPad.wav",
+  "grid": [
+    [
+      "Grass.png",
+      "Grass.png",
+      "Grass.png",
+      "Grass.png",
+      "Grass.png"
+    ],
+    [
+      "Grass.png",
+      "Grass.png",
+      "Grass.png",
+      "Grass.png",
+      "Grass.png"
+    ],
+    [
+      "Grass.png",
+      "Grass.png",
+      "Grass.png",
+      "Grass.png",
+      "Grass.png"
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  ]
+}
