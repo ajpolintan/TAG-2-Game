@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b45qcciyj2j5t"]
 
-[ext_resource type="Texture2D" uid="uid://b7uwk7yo3tbew" path="res://Assets/Art/exit.png" id="1_eac16"]
+[ext_resource type="Texture2D" uid="uid://b7uwk7yo3tbew" path="res://Assets/Art/Tiles/exit.png" id="1_eac16"]
 [ext_resource type="Script" uid="uid://t2374ekwptfm" path="res://Projectile/ProjectileComponent.cs" id="1_whj0l"]
 [ext_resource type="Script" uid="uid://ds2dbddssa4at" path="res://Scripts/DamageComponent.cs" id="2_ghnax"]
 

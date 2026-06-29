@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b81qnrjxbnw53"
-path="res://.godot/imported/hachiware.webp-c8ac2f866014f5f801c0dad6aedf585f.ctex"
+uid="uid://x5hfgjj0vomw"
+path="res://.godot/imported/bed.png-45d5a62bc4d7bd6868aeb5553d1e7094.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/hachiware.webp"
-dest_files=["res://.godot/imported/hachiware.webp-c8ac2f866014f5f801c0dad6aedf585f.ctex"]
+source_file="res://Assets/Art/LevelAssets/bed.png"
+dest_files=["res://.godot/imported/bed.png-45d5a62bc4d7bd6868aeb5553d1e7094.ctex"]
 
 [params]
 

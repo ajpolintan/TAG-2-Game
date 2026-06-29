@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4sifmb16ogpb"
-path="res://.godot/imported/mcSide_L-Sheet.png-0c2d95700aba654c48aee23de4232e53.ctex"
+uid="uid://0dem38pkqw43"
+path="res://.godot/imported/witchSide_L-Sheet.png-4f1f2669d1cdcf2c018110f63839e754.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/mcSide_L-Sheet.png"
-dest_files=["res://.godot/imported/mcSide_L-Sheet.png-0c2d95700aba654c48aee23de4232e53.ctex"]
+source_file="res://Assets/Art/LevelAssets/witchSide_L-Sheet.png"
+dest_files=["res://.godot/imported/witchSide_L-Sheet.png-4f1f2669d1cdcf2c018110f63839e754.ctex"]
 
 [params]
 

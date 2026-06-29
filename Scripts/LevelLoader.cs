@@ -72,11 +72,10 @@ public partial class LevelLoader : Node
 	public Sprite2D lookup(string textureName, float x, float y) {
 		Sprite2D sprite = new Sprite2D();
 		if (textureName == null) {
-			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/wood_floor.png"); 
+			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/Tiles/wood_floor.png"); 
 		} else {
-			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/" + textureName); 
+			sprite.Texture = GD.Load<Texture2D>("res://Assets/Art/Tiles/" + textureName); 
 		}
-		
 		sprite.Position = new Vector2(x, y); 
 		return sprite; 
 	}

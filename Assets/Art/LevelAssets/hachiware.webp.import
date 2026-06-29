@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dix8jp1ccjr1k"
-path="res://.godot/imported/mcSide_up-Sheet.png-49ce0a7c1c582d5c07f1f1fc919ad2b5.ctex"
+uid="uid://b81qnrjxbnw53"
+path="res://.godot/imported/hachiware.webp-3e80c1ef39a5d58d0ae2d1fe21b70928.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/mcSide_up-Sheet.png"
-dest_files=["res://.godot/imported/mcSide_up-Sheet.png-49ce0a7c1c582d5c07f1f1fc919ad2b5.ctex"]
+source_file="res://Assets/Art/LevelAssets/hachiware.webp"
+dest_files=["res://.godot/imported/hachiware.webp-3e80c1ef39a5d58d0ae2d1fe21b70928.ctex"]
 
 [params]
 

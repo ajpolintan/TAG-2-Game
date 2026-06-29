@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bglwkfw81v4tm"
-path="res://.godot/imported/blue.png-2ee743a666243143e3069720f90a4e8e.ctex"
+uid="uid://dg8e3r7bs1kas"
+path="res://.godot/imported/witch_up-Sheet.png-c60e6027bc08f8a405d094ff2c444a6a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/blue.png"
-dest_files=["res://.godot/imported/blue.png-2ee743a666243143e3069720f90a4e8e.ctex"]
+source_file="res://Assets/Art/LevelAssets/witch_up-Sheet.png"
+dest_files=["res://.godot/imported/witch_up-Sheet.png-c60e6027bc08f8a405d094ff2c444a6a.ctex"]
 
 [params]
 

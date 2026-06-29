@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7kj0wpo0obcg"
-path="res://.godot/imported/transparent apple.png-726642a6bf1b499dda8aa78584c87e13.ctex"
+uid="uid://bhlol7q0nbtg2"
+path="res://.godot/imported/mirror.png-c83d5183b17768326e295aa208f099a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/transparent apple.png"
-dest_files=["res://.godot/imported/transparent apple.png-726642a6bf1b499dda8aa78584c87e13.ctex"]
+source_file="res://Assets/Art/LevelAssets/mirror.png"
+dest_files=["res://.godot/imported/mirror.png-c83d5183b17768326e295aa208f099a7.ctex"]
 
 [params]
 

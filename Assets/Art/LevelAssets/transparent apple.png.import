@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bt3y2crjf3414"
-path="res://.godot/imported/wood_floor.png-a40148d5a4e5965ec850063584debb14.ctex"
+uid="uid://7kj0wpo0obcg"
+path="res://.godot/imported/transparent apple.png-8b07b6a859a36e765a33a95c5d16650b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/wood_floor.png"
-dest_files=["res://.godot/imported/wood_floor.png-a40148d5a4e5965ec850063584debb14.ctex"]
+source_file="res://Assets/Art/LevelAssets/transparent apple.png"
+dest_files=["res://.godot/imported/transparent apple.png-8b07b6a859a36e765a33a95c5d16650b.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dg8e3r7bs1kas"
-path="res://.godot/imported/witch_up-Sheet.png-bcedbd7dec553284bbcc772aca2c1fe1.ctex"
+uid="uid://cm1qdx7oq70t8"
+path="res://.godot/imported/green.png-38fa5e4c2b0ccf5506fef51771fa2ec8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/witch_up-Sheet.png"
-dest_files=["res://.godot/imported/witch_up-Sheet.png-bcedbd7dec553284bbcc772aca2c1fe1.ctex"]
+source_file="res://Assets/Art/Tiles/green.png"
+dest_files=["res://.godot/imported/green.png-38fa5e4c2b0ccf5506fef51771fa2ec8.ctex"]
 
 [params]
 

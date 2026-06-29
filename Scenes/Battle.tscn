@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b1023ja8s3rom"]
 
 [ext_resource type="Script" uid="uid://d1m3sw2lfoe8y" path="res://Scripts/Battle.cs" id="1_vr6xi"]
-[ext_resource type="Texture2D" uid="uid://bc8us0vqin56x" path="res://Assets/Art/usagi.webp" id="1_wvl2i"]
+[ext_resource type="Texture2D" uid="uid://bc8us0vqin56x" path="res://Assets/Art/LevelAssets/usagi.webp" id="1_wvl2i"]
 [ext_resource type="Resource" uid="uid://ce7aac4r4c14e" path="res://Enemy/Apple.tres" id="2_2h7oj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vr6xi"]
